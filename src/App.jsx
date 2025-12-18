@@ -1,4 +1,5 @@
 import MovieList from "./cine/MovieList";
+import Footer from "./Footer";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 
@@ -12,6 +13,7 @@ export default function App() {
           <MovieList />
         </div>
       </main>
+      <Footer />
     </div>
   );
 }
