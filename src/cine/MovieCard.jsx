@@ -7,6 +7,7 @@ import Rating from "./Rating.jsx";
 export default function MovieCard({ movie }) {
   const [showModal, setShowModal] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const { cartData, setCartData } = useContext(MovieContext);
 
@@ -20,10 +21,16 @@ export default function MovieCard({ movie }) {
 
     if (!found) {
       setCartData([...cartData, movie]);
+      setErrorMessage(null);
     } else {
-      console.error(
-        `The movie ${movie.title} has been added to the cart already`
-      );
+      const message = `The movie ${movie.title} has been added to the cart already`;
+      // console.error(message);
+      setErrorMessage(message);
+
+      // Clear error message
+      setTimeout(() => {
+        setErrorMessage(null);
+      }, 3000);
     }
   }
 
@@ -67,6 +74,14 @@ export default function MovieCard({ movie }) {
               <img src="./assets/tag.svg" alt="" />
               <span>${movie.price} | Add to Cart</span>
             </a>
+            {/* Error message display */}
+            {errorMessage && (
+              <div className="mt-2 text-center">
+                <p className="text-red-500 text-sm font-medium">
+                  ⚠️ {errorMessage}
+                </p>
+              </div>
+            )}
           </figcaption>
         </a>
       </figure>
